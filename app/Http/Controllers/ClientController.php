@@ -83,6 +83,9 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
+        $registro = $this->repository->find($id);
         $this->repository->delete($id);
+        return "O cliente ". $registro->name . " foi deletado com sucesso";
+
     }
 }
