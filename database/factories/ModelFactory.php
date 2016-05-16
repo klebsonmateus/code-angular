@@ -29,4 +29,16 @@ $factory->define(CodeProject\Entities\Client::class, function (Faker\Generator $
         'address' => $faker->address,
         'obs' => $faker->sentence,
         ];
+
+});
+
+$factory->define(CodeProject\Entities\Project::class, function (Faker\Generator $faker) {
+    return [
+        'owner_id' => $faker->numberBetween($min = 1, $max = 10),
+        'client_id' => $faker->numberBetween($min = 1, $max = 10),
+        'name' => $faker->name,
+        'description' => $faker->sentence,
+        'progress' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 100),
+        'status' => $faker->word,
+        ];
 });
