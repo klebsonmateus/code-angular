@@ -34,11 +34,20 @@ $factory->define(CodeProject\Entities\Client::class, function (Faker\Generator $
 
 $factory->define(CodeProject\Entities\Project::class, function (Faker\Generator $faker) {
     return [
-        'owner_id' => $faker->numberBetween($min = 1, $max = 10),
-        'client_id' => $faker->numberBetween($min = 1, $max = 10),
-        'name' => $faker->name,
+        'owner_id' => rand(1,10),
+        'client_id' => rand(1,10),
+        'name' => $faker->word,
         'description' => $faker->sentence,
-        'progress' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 100),
-        'status' => $faker->word,
+        'progress' => rand(1,100),
+        'status' => rand(1,3),
+        'due_date' => $faker->dateTime('now')
+        ];
+});
+
+$factory->define(CodeProject\Entities\ProjectNote::class, function (Faker\Generator $faker) {
+    return [
+        'project_id' => rand(1,10),
+        'title' => $faker->word,
+        'note' => $faker->paragraph,
         ];
 });

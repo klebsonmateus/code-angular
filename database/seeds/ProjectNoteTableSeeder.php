@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class UserTableSeeder extends Seeder
+class ProjectNoteTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-    	
-        factory(\CodeProject\Entities\User::class,10)->create();
+        
+        factory(\CodeProject\Entities\ProjectNote::class,50)->create();
     }
 }
