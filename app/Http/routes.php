@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('oauth/access_token', function(){
+	return Response::json(Authorizer::issueAccessToken());
+});
+
 //Users
 Route::get('user', 'UserController@index');
 Route::post('user', 'UserController@store');
@@ -30,7 +34,7 @@ Route::get('client/{id}', 'ClientController@show');
 Route::delete('client/{id}', 'ClientController@destroy');
 Route::put('client/{id}', 'ClientController@update');
 
-
+//ProjectNotes
 Route::get('project/{id}/note', 'ProjectNoteController@index');
 Route::post('project/{id}/note', 'ProjectNoteController@store');
 Route::get('project/{id}/note/{noteId}', 'ProjectNoteController@show');
