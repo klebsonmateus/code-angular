@@ -28,7 +28,7 @@ Route::put('user/{id}', 'UserController@update');
 
 
 //Clients
-Route::get('client', 'ClientController@index');
+Route::get('client', ['middleware' => 'oauth','uses'=>'ClientController@index']);
 Route::post('client', 'ClientController@store');
 Route::get('client/{id}', 'ClientController@show');
 Route::delete('client/{id}', 'ClientController@destroy');
