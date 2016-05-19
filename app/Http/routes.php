@@ -29,11 +29,11 @@ Route::group(['middleware'=>'oauth'], function(){
 	Route::resource('client','ClientController',['except'=>['create','edit']]);
 
 
-	Route::group(['middleware'=>'CheckProjectOwner'], function() {
-		//Projects
-	Route::resource('project','ProjectController',['except'=>['create','edit']]);
-	});
 	
+	//Projects
+	Route::resource('project','ProjectController',['except'=>['create','edit']]);
+	
+
 
 	//ProjectNotes
 	Route::group(['prefix'=>'project'],function() {

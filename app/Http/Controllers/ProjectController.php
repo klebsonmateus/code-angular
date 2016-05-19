@@ -36,7 +36,7 @@ class ProjectController extends Controller
     public function index()
     {
         
-        return $this->repository->with(['owner', 'client'])->all();
+        return $this->repository->with(['owner', 'client'])->findWhere(['owner_id' => \Authorizer::getResourceOwnerId()]);
 
     }
 
@@ -60,7 +60,10 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-               
+        if($this->checkProjectOwner($id)==false) {
+            return ['error' => 'Access Forbidden'];
+        }  
+
         return $this->repository->with(['owner', 'client'])->find($id);
         
     }
@@ -74,6 +77,11 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        if($this->checkProjectOwner($id)==false) {
+            return ['error' => 'Access Forbidden'];
+        } 
+
         return $this->service->update($request->all(), $id);
                
     }
@@ -86,9 +94,21 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
+        if($this->checkProjectOwner($id)==false) {
+            return ['error' => 'Access Forbidden'];
+        } 
+
         $registro = $this->repository->find($id);
         $this->repository->delete($id);
         return "O projeto ". $registro->name . " foi deletado com sucesso";
 
+    }
+
+    private function checkProjectOwner($projectId) 
+    {
+        $userId = \Authorizer::getResourceOwnerId(); 
+        
+
+        return $this->repository->isOwner($projectId, $userId );
     }
 }
