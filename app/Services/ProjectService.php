@@ -5,6 +5,10 @@ namespace CodeProject\Services;
 use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Validators\ProjectValidator;
 
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 class ProjectService
 {
 
@@ -56,6 +60,13 @@ class ProjectService
 		}
 		
 		
+	}
+
+	public function createFile(array $data)
+	{
+		Storage::put($data['name'].".".$data['extension'] , File::get($data['file']));
+
+
 	}
 
 }
