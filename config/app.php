@@ -139,7 +139,8 @@ return [
 
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider::class,
-LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class,
+        LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class,
+        Bestmomo\Scafold\ScafoldServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -149,6 +150,7 @@ LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class,
         CodeProject\Providers\EventServiceProvider::class,
         CodeProject\Providers\RouteServiceProvider::class,
         CodeProject\Providers\CodeProjectRepositoryProvider::class,
+
 
     ],
 
