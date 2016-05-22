@@ -5,8 +5,12 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Laravel</title>
-
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+	@if(Config::get('app.debug'))
+		<link rel="stylesheet" type="text/css" href="{{asset('build/css/vendor/bootstrap.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('build/css/vendor/bootstrap-theme.min.css')}}">
+	@else
+		<link rel="stylesheet" type="text/css" href="{{elixir('css/all.css')}}">
+	@endif
 
 	<!-- Fonts -->
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -60,7 +64,17 @@
 	@yield('content')
 
 	<!-- Scripts -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	@if(Config::get('app.debug'))
+		<script src="{{elixir('build/js/vendor/jquery.min.js')}}" type="text/javascript" charset="utf-8" async defer></script>
+		<script src="{{elixir('build/js/vendor/angular.min.js')}}" type="text/javascript" charset="utf-8" async defer></script>
+		<script src="{{elixir('build/js/vendor/angular-route.min.js')}}" type="text/javascript" charset="utf-8" async defer></script>
+		<script src="{{elixir('build/js/vendor/angular-resource.min.js')}}" type="text/javascript" charset="utf-8" async defer></script>
+		<script src="{{elixir('build/js/vendor/angular-animate.min.js')}}" type="text/javascript" charset="utf-8" async defer></script>
+		<script src="{{elixir('build/js/vendor/angular-messages.min.js')}}" type="text/javascript" charset="utf-8" async defer></script>
+		<script src="{{elixir('build/js/vendor/ui-bootstrap.min.js')}}" type="text/javascript" charset="utf-8" async defer></script>
+		<script src="{{elixir('build/js/vendor/navbar.min.js')}}" type="text/javascript" charset="utf-8" async defer></script>
+	@else
+		<script src="{{elixir('js/all.js')}}" type="text/javascript" charset="utf-8" async defer></script>
+	@endif
 </body>
 </html>
