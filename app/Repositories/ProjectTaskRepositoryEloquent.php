@@ -2,17 +2,16 @@
 
 namespace CodeProject\Repositories;
 
-use CodeProject\Presenters\ProjectNotePresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use CodeProject\Repositories\ProjectNoteRepository;
-use CodeProject\Entities\ProjectNote;
+use CodeProject\Repositories\ProjectTaskRepository;
+use CodeProject\Entities\ProjectTask;
 
 /**
- * Class ProjectNoteRepositoryEloquent
+ * Class ProjectTaskRepositoryEloquent
  * @package namespace CodeProject\Repositories;
  */
-class ProjectNoteRepositoryEloquent extends BaseRepository implements ProjectNoteRepository
+class ProjectTaskRepositoryEloquent extends BaseRepository implements ProjectTaskRepository
 {
     /**
      * Specify Model class name
@@ -21,7 +20,7 @@ class ProjectNoteRepositoryEloquent extends BaseRepository implements ProjectNot
      */
     public function model()
     {
-        return ProjectNote::class;
+        return ProjectTask::class;
     }
 
     /**
@@ -33,8 +32,8 @@ class ProjectNoteRepositoryEloquent extends BaseRepository implements ProjectNot
     }
 
 
-    public function presenter()
+    public function validator()
     {
-        return ProjectNotePresenter::class;
+        return \CodeProject\Validators\ProjectTaskValidator::class;
     }
 }

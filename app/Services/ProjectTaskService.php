@@ -4,15 +4,16 @@ namespace CodeProject\Services;
 
 
 use CodeProject\Repositories\ClientRepository;
+use CodeProject\Repositories\ProjectTaskRepository;
 use CodeProject\Validators\ClientValidator;
 use Prettus\Validator\Exceptions\ValidatorException;
 
-class ClientService
+class ProjectTaskService
 {
     protected $repository;
     protected $validator;
 
-    public function __construct(ClientRepository $repository, ClientValidator $validator)
+    public function __construct(ProjectTaskRepository $repository, ClientValidator $validator)
     {
         $this->repository = $repository;
         $this->validator = $validator;

@@ -2,10 +2,10 @@
 
 namespace CodeProject\Http\Controllers;
 
-use Illuminate\Http\Request;
+use CodeProject\Http\Requests;
 use CodeProject\Repositories\ProjectNoteRepository;
 use CodeProject\Services\ProjectNoteService;
-
+use Illuminate\Http\Request;
 
 class ProjectNoteController extends Controller
 {
@@ -19,15 +19,12 @@ class ProjectNoteController extends Controller
      */
     private $service;
 
-    /**
-     * @param ProjectNoteRepository $repository
-     * @param ProjectNoteService $service
-     */
     public function __construct(ProjectNoteRepository $repository, ProjectNoteService $service)
     {
         $this->repository = $repository;
         $this->service = $service;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +43,6 @@ class ProjectNoteController extends Controller
      */
     public function store(Request $request)
     {
-        
         return $this->service->create($request->all());
     }
 
@@ -58,9 +54,16 @@ class ProjectNoteController extends Controller
      */
     public function show($id, $noteId)
     {
-        return $this->repository->findWhere(['project_id' =>$id,'id'=>$noteId]);
-        
+        $result = $this->repository->findWhere(['project_id'=>$id, 'id'=>$noteId]);
+        if(isset($result['data']) && count($result['data'])==1) {
+            $result = [
+                'data' => $result['data'][0]
+            ];
+        }
+        return $result;
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -72,7 +75,6 @@ class ProjectNoteController extends Controller
     public function update(Request $request, $id, $noteId)
     {
         return $this->service->update($request->all(), $noteId);
-               
     }
 
     /**
@@ -83,9 +85,9 @@ class ProjectNoteController extends Controller
      */
     public function destroy($id, $noteId)
     {
-        $registro = $this->repository->find($id);
-        $this->repository->delete($id);
-        return "A nota ". $registro->title . " foi deletada com sucesso";
-
+        if($this->repository->skipPresenter()->find($noteId)->delete()){
+            return ['success'=>true, 'message'=>'Nota '.$noteId.' excluída com sucesso!'];
+        }
+        return ['error'=>true, 'message'=>'Não foi possível excluir a nota '.$noteId];
     }
 }

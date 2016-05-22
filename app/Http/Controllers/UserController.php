@@ -2,31 +2,29 @@
 
 namespace CodeProject\Http\Controllers;
 
+use CodeProject\Entities\User;
 use Illuminate\Http\Request;
-use CodeProject\Repositories\ProjectRepository;
-use CodeProject\Services\ProjectService;
 
+use CodeProject\Http\Requests;
+use CodeProject\Http\Controllers\Controller;
+use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
 class UserController extends Controller
 {
     /**
-     * @var ProjectRepository
+     * @var User
      */
-    private $repository;
+    private $user;
 
-    /**
-     * @var ProjectService
-     */
-    private $service;
-
-    /**
-     * @param ProjectRepository $repository
-     * @param ProjectService $service
-     */
-    public function __construct(UserRepository $repository, UserService $service)
+    public function __construct(User $user)
     {
-        $this->repository = $repository;
-        $this->service = $service;
+        $this->user = $user;
+    }
+
+    public function authenticated()
+    {
+        $idUser = Authorizer::getResourceOwnerId();
+        return $this->user->find($idUser);
     }
     /**
      * Display a listing of the resource.
@@ -35,7 +33,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        return $this->repository->all();
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -46,8 +54,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
-        return $this->service->create($request->all());
+        //
     }
 
     /**
@@ -58,8 +65,18 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return $this->repository->find($id);
-        
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
@@ -71,8 +88,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $this->service->update($request->all(), $id);
-               
+        //
     }
 
     /**
@@ -83,9 +99,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $registro = $this->repository->find($id);
-        $this->repository->delete($id);
-        return "O usuário ". $registro->name . " foi deletado com sucesso";
-
+        //
     }
 }

@@ -2,11 +2,11 @@
 
 namespace CodeProject\Repositories;
 
+use CodeProject\Validators\ClientValidator;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Entities\Project;
-use CodeProject\Validators\ProjectValidator;
 use CodeProject\Presenters\ProjectPresenter;
 
 /**
@@ -25,8 +25,6 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
         return Project::class;
     }
 
-    
-
     /**
      * Boot up the repository, pushing criteria
      */
@@ -35,21 +33,22 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    public function isOwner($projectId, $userId) 
+    public function isOwner($projectId, $userId)
     {
-        if(count($this->findWhere(['id'=>$projectId, 'owner_id'=>$userId]))) {
+        if(count($this->findWhere(['id'=>$projectId, 'owner_id'=>$userId]))){
             return true;
         }
 
         return false;
     }
 
+
     public function hasMember($projectId, $memberId)
     {
         $project = $this->find($projectId);
 
-        foreach($project->members as $member) {
-            if($member->id == $memberId) {
+        foreach($project->members as $member){
+            if($member->id == $memberId){
                 return true;
             }
         }
@@ -57,8 +56,17 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
         return false;
     }
 
+
     public function presenter()
     {
         return ProjectPresenter::class;
     }
+
+
+    public function validator()
+    {
+        return \CodeProject\Validators\ProjectValidator::class;
+    }
+
+
 }

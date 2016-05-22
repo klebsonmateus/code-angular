@@ -2,11 +2,11 @@
 
 namespace CodeProject\Presenters;
 
-use CodeProject\Transformers\ProjectTransformer;
+use CodeProject\Transformers\ProjectNoteTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
 
-class ProjectPresenter extends FractalPresenter
+class ProjectNotePresenter extends FractalPresenter
 {
 
     /**
@@ -16,6 +16,6 @@ class ProjectPresenter extends FractalPresenter
      */
     public function getTransformer()
     {
-        return new ProjectTransformer();
+        return new ProjectNoteTransformer();
     }
 }
