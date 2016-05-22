@@ -58,7 +58,23 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        return $this->repository->find($id);
+        try{
+            return $this->repository->find($id);
+        }
+        catch(ModelNotFoundException $e){
+            return $this->erroMsgm('Cliente não encontrado.');
+        }
+        catch(\Exception $e){
+            return $this->erroMsgm('Ocorreu um erro ao exibir o cliente.');
+        }
+        /*
+        $clientExist = $this->repository->find($id);
+        return "true";
+        if ($clientExist == true){
+            return "true";
+        }
+        return "false";
+        */
         
     }
 
@@ -87,5 +103,13 @@ class ClientController extends Controller
         $this->repository->delete($id);
         return "O cliente ". $registro->name . " foi deletado com sucesso";
 
+    }
+
+    private function erroMsgm($mensagem)
+    {
+        return [
+            'error' => true,
+            'message' => $mensagem,
+        ];
     }
 }

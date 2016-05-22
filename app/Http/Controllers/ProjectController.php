@@ -81,6 +81,7 @@ class ProjectController extends Controller
         if($this->checkProjectOwner($id)==false) {
             return ['error' => 'Access Forbidden'];
         } 
+        
 
         return $this->service->update($request->all(), $id);
                
@@ -94,13 +95,13 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        if($this->checkProjectPermissions($id)==false) {
+        if($this->checkProjectOwner($id)==false) {
             return ['error' => 'Access Forbidden'];
         } 
 
         $registro = $this->repository->find($id);
         $this->repository->delete($id);
-        return "O projeto ". $registro->name . " foi deletado com sucesso";
+        return "O projeto foi deletado com sucesso";
 
     }
 
