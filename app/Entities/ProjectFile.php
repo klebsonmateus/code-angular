@@ -11,14 +11,18 @@ class ProjectFile extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = [
-    'name',
-    'description',
-    'extension'
+        'name',
+        'description',
+        'extension',
     ];
 
     public function project()
     {
         return $this->belongsTo(Project::class);
-    } 
+    }
 
+    public function getFileName()
+    {
+        return $this->id.".".$this->extension;
+    }
 }
