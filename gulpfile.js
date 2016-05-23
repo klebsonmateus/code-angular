@@ -32,6 +32,16 @@ config.vendor_path_css = [
 	
 ]
 
+config.build_path_html = config.build_path + '/views';
+
+gulp.task('copy-html',function(){
+	gulp.src([
+				config.assets_path + '/js/views/**/*.html' 
+			])
+				.pipe(gulp.dest(config.build_path_html))
+				.pipe(liveReload());	
+});
+
 gulp.task('copy-styles',function(){
 	gulp.src([
 			config.assets_path + '/css/**/*.css' 
@@ -62,6 +72,7 @@ gulp.task('clear-build-folder', function() {
 });
 
 gulp.task('default',['clear-build-folder'], function() {
+	gulp.start('copy-html');
 	elixir(function(mix){
 		mix.styles(config.vendor_path_css.concat([config.assets_path+'/css/**/*.css']), 
 			'public/css/all.css', 
@@ -75,7 +86,8 @@ gulp.task('default',['clear-build-folder'], function() {
 
 gulp.task('watch-dev',['clear-build-folder'], function() {
 	liveReload.listen();
-	gulp.start('copy-styles','copy-scripts');
-	gulp.watch(config.assets_path + '/**',['copy-styles','copy-scripts']);
+	gulp.start('copy-styles','copy-scripts', 'copy-html');
+	gulp.watch(config.assets_path + '/**',
+		['copy-styles','copy-scripts','copy-html']);
 });
 
